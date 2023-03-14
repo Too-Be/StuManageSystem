@@ -1,0 +1,37 @@
+# Project: 用C语言来实现面向对象并且实现一个简单的学生管理系统
+# Makefile created by Red Panda C++ 1.4
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = 项目1_private.res
+OBJ      = main.o Animal.o $(RES)
+LINKOBJ  = main.o Animal.o $(RES)
+CLEANOBJ  =  main.o Animal.o 项目1_private.res 项目1.exe
+LIBS     = 
+INCS     =  
+CXXINCS  =  
+BIN      = 项目1.exe
+CXXFLAGS = $(CXXINCS)  -g3 -pipe -Wall -Wextra -D__DEBUG__
+CFLAGS   = $(INCS)  -g3 -pipe -Wall -Wextra -D__DEBUG__
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(CLEANOBJ) > NUL 2>&1
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c Animal.h
+	$(CC) -c E:/untitled/StuManageSystem/main.c -o main.o $(CFLAGS) 
+
+Animal.o: Animal.c Animal.h
+	$(CC) -c E:/untitled/StuManageSystem/Animal.c -o Animal.o $(CFLAGS) 
+
+项目1_private.res: 项目1_private.rc 
+	$(WINDRES) -i 项目1_private.rc --input-format=rc -o 项目1_private.res -O coff 
+
